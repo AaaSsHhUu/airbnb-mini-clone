@@ -10,7 +10,8 @@ const listingSchema = new Schema({
     image : {
         type : String,
         default : "https://media.istockphoto.com/id/1466527775/photo/ponquogue-beach-in-the-hamptons.webp?b=1&s=170667a&w=0&k=20&c=Ppxl9896aQQoOixGQlTxiwAajE6S2zaU86F_a8qQGBQ=",
-        set : (v) => v === "" ? "https://media.istockphoto.com/id/1466527775/photo/ponquogue-beach-in-the-hamptons.webp?b=1&s=170667a&w=0&k=20&c=Ppxl9896aQQoOixGQlTxiwAajE6S2zaU86F_a8qQGBQ=" : v
+
+        set : (v) => v === "" ? "https://media.istockphoto.com/id/1466527775/photo/ponquogue-beach-in-the-hamptons.webp?b=1&s=170667a&w=0&k=20&c=Ppxl9896aQQoOixGQlTxiwAajE6S2zaU86F_a8qQGBQ=" : v,
     },
     price : Number,
     location : String,
