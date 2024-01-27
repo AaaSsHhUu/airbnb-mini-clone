@@ -79,7 +79,12 @@ app.put("/listings/:id",async (req,res)=>{
   res.redirect("/listings");
 })
 
-
+// Delete route
+app.delete("/listings/:id",async (req,res)=>{
+  let {id} = req.params;
+  await Listing.findByIdAndDelete(id);
+  res.redirect("/listings");
+})
 
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`);
