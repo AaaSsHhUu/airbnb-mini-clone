@@ -8,22 +8,22 @@
 <body>
     <h2>Add new Place</h2>
     <form action="/listings" method="post">
-        <input type="text" name="title" placeholder="Enter Title">
+        <input type="text" name="listing[title]" placeholder="Enter Title">
         <br>
         <br>
-        <textarea name="description" cols="30" rows="10" placeholder="Enter Description"></textarea>
+        <textarea name="listing[description]" cols="30" rows="10" placeholder="Enter Description"></textarea>
         <br>
         <br>
-        <input type="text" name="image" placeholder="Enter image url">
+        <input type="text" name="listing[image]" placeholder="Enter image url">
         <br>
         <br>
-        <input type="text" name="price" placeholder="Enter Price">
+        <input type="text" name="listing[price]" placeholder="Enter Price">
         <br>
         <br>
-        <input type="text" name="location" placeholder="Enter Location">
+        <input type="text" name="listing[location]" placeholder="Enter Location">
         <br>
         <br>
-        <input type="text" name="country" placeholder="Enter Country">
+        <input type="text" name="listing[country]" placeholder="Enter Country">
         <br>
         <br>
         <button>Add Place</button>
