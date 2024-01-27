@@ -42,6 +42,11 @@ app.get("/listings", async (req,res)=>{
   res.render("listings/index.ejs",{allListings}); 
 })
 
+// Add new route
+app.get("/listnings/new",(req,res)=>{
+  res.render("listings/new.ejs");
+})
+
 // Show Route
 app.get("/listings/:id" , async (req,res)=>{
     let {id} = req.params;
@@ -49,10 +54,7 @@ app.get("/listings/:id" , async (req,res)=>{
     res.render("listings/show.ejs",{listing});
 })
 
-// Add new route
-app.get("/listnings/new",(req,res)=>{
-  res.render("listings/new.ejs");
-})
+
 
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`);
