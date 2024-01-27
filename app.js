@@ -4,6 +4,8 @@ const port = 8080;
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
+const methodOverride = require("method-override");
+
 
 main()
 .then(res => console.log("Connected to DB"))
@@ -13,6 +15,7 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 }
 
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"/views"));
 
@@ -60,6 +63,20 @@ app.get("/listings/:id" , async (req,res)=>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs",{listing});
+})
+
+// Edit route
+app.get("/listings/:id/edit",async (req,res)=>{
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    res.render("listings/edit.ejs",{listing});
+})
+
+// Update route
+app.put("/listings/:id",async (req,res)=>{
+  let {id} = req.params;
+  await Listing.findByIdAndUpdate(id,{...req.body.listing});
+  res.redirect("/listings");
 })
 
 
