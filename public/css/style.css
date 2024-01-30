@@ -12,3 +12,33 @@
 .nav-link{
     color: #222222 !important;
 }
+
+/* Footer */
+
+.f-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 8rem;
+    background: #ebebeb;
+}
+
+.f-info-social,.copyright,.f.info-links{
+    width: 100%;
+    text-align: center;
+}
+
+.f-info-social i{
+    font-size: 1.5rem;
+    margin: 5px 5px;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover{
+    text-decoration: underline;
+}
