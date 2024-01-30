@@ -1,9 +1,16 @@
 <% layout("./layouts/boilerplate.ejs") -%>
 <body>
     <h2>All Listings</h2>
-    <ul>
+    <div class="row row-cols-lg-4 row-cols-md-3 justify-content-center row-cols-sm-1 row-cols-xsm-1">
         <% for(listing of allListings){ %>
-            <li><a href="/listings/<%= listing._id %>"><%= listing.title %></a></li>
+            <div class="card col" style="width: 20rem;">
+                <img src="<%= listing.image %>" class="card-img-top" alt="listing-image">
+                <div class="card-body">
+                    <h5 class="card-title"><%= listing.title %></h5>
+                    <p class="card-text"><%= listing.description %></p>
+                    <p><span>₹<%= listing.price %></span> night</p>
+                </div>
+            </div>
         <% } %>
-    </ul>
+    </div>
 </body>
