@@ -59,3 +59,16 @@
 .card-body{
     padding: 0 !important;
 }
+
+.listing-link{
+    text-decoration: none;
+}
+
+.card-img-overlay{
+    opacity: 0;
+    background: #fff;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+}
