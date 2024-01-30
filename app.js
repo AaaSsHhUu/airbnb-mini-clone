@@ -48,7 +48,7 @@ app.get("/listings", async (req,res)=>{
 })
 
 // Add new route
-app.get("/listnings/new",(req,res)=>{
+app.get("/listings/new",(req,res)=>{
   res.render("listings/new.ejs");
 })
 
