@@ -24,8 +24,13 @@ body{
 .add-btn{
     color: fe424d !important;
 }
+/* edit page */
 .edit-btn{
     color: fe424d !important;
+}
+/* show page */
+.show-img{
+    height: 30vh !important;
 }
 
 /* Footer */
