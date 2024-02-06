@@ -7,6 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 
 main()
@@ -28,74 +29,74 @@ app.get("/", (req,res)=>{
     res.send("Root is wotking");
 })
 
-// app.get("/testListing", async (req,res)=>{
-//     let sampleListing = new Listing({
-//       title : "My new Villa",
-//       description : "By the Beach of Goa",
-//       price : 1200,
-//       location : "Calangute, Goa",
-//       country : "India"
-//     })
-
-//     await sampleListing.save();
-//     console.log("Smaple saved");
-//     res.send("successful testing");
-// })
-
 // Index Route
-app.get("/listings", async (req,res)=>{
+app.get("/listings", wrapAsync(async (req,res)=>{
   const allListings = await Listing.find({});
   res.render("listings/index.ejs",{allListings}); 
-})
+}))
 
-// Add new route
-app.get("/listings/new",(req,res)=>{
+// Add new listing route
+app.get("/listings/new",wrapAsync((req,res)=>{
   res.render("listings/new.ejs");
-})
+}))
 
 // new data route
-app.post("/listings", async (req,res,next)=>{
-  try{
-      // let {title,description,image,price,location,country} = req.body; 
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-  }catch(err){
-    next(err);
+app.post("/listings",wrapAsync(
+  async (req,res,next)=>{
+    // let {title,description,image,price,location,country} = req.body; 
+  if(!req.body.listing){
+    throw new ExpressError(400,"Bad Request");
   }
-})
+  const newListing = new Listing(req.body.listing);
+  await newListing.save();
+  res.redirect("/listings");
+  next(err);
+  }
+))
+
 
 // Show Route
-app.get("/listings/:id" , async (req,res)=>{
+app.get("/listings/:id" , wrapAsync(async (req,res)=>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs",{listing});
-})
+}))
 
 // Edit route
-app.get("/listings/:id/edit",async (req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let listing = await Listing.findById(id);
     res.render("listings/edit.ejs",{listing});
-})
+}))
 
 // Update route
-app.put("/listings/:id",async (req,res)=>{
+app.put("/listings/:id",wrapAsync(async (req,res)=>{
+  if(!req.body.listing){
+    throw new ExpressError(400,"Bad Request");
+  }
   let {id} = req.params;
   await Listing.findByIdAndUpdate(id,{...req.body.listing});
   res.redirect(`/listings/${id}`);
-})
+}))
 
 // Delete route
-app.delete("/listings/:id",async (req,res)=>{
+app.delete("/listings/:id",wrapAsync(async (req,res)=>{
   let {id} = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
+}))
+
+
+app.all("*",(req,res,next)=>{
+  next(new ExpressError(404,"Page Not Found!!!"));
 })
+
 
 // Error Handling middleware
 app.use((err,req,res,next)=>{
-  res.send(err);
+  let {statusCode=500,message="Internal server error"} = err;
+  console.log(err);
+  res.render("listings/error.ejs",{statusCode,message});
 })
 
 app.listen(port, ()=>{
