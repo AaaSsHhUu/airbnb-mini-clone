@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const {listingSchema} = require("./joiSchema.js");
 
 
 main()
@@ -44,9 +45,10 @@ app.get("/listings/new",wrapAsync((req,res)=>{
 app.post("/listings",wrapAsync(
   async (req,res,next)=>{
     // let {title,description,image,price,location,country} = req.body; 
-  if(!req.body.listing){
-    throw new ExpressError(400,"Bad Request");
-  }
+  let checkError = listingSchema.validate(req.body);
+    if(checkError.error){
+      throw new ExpressError(400,checkError.error);
+    }
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
