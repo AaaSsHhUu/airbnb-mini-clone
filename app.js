@@ -6,6 +6,7 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js");
 
 
 main()
@@ -53,11 +54,15 @@ app.get("/listings/new",(req,res)=>{
 })
 
 // new data route
-app.post("/listings", async (req,res)=>{
-  // let {title,description,image,price,location,country} = req.body; 
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
+app.post("/listings", async (req,res,next)=>{
+  try{
+      // let {title,description,image,price,location,country} = req.body; 
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+  }catch(err){
+    next(err);
+  }
 })
 
 // Show Route
@@ -86,6 +91,11 @@ app.delete("/listings/:id",async (req,res)=>{
   let {id} = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
+})
+
+// Error Handling middleware
+app.use((err,req,res,next)=>{
+  res.send(err);
 })
 
 app.listen(port, ()=>{
