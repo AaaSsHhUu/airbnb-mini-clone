@@ -4,14 +4,17 @@
         <div class="col-8 offset-2">
             <h2>Add new Place</h2>
             <form action="/listings" method="post" class="needs-validation" novalidate>
+
                 <div class = "mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" class="form-control" id="title" required>
+                    <div class="invalid-feedback">Please Enter Title</div>
                 </div>
                 
                 <div class = "mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="listing[description]" class="form-control" id="description" required></textarea>
+                    <div class="invalid-feedback">Please Enter Description</div>
                 </div>
                 <div class = "mb-3">
                     <label for="image" class="form-label">Image URL</label>
@@ -21,18 +24,22 @@
                 <div class="row">
                     <div class = "mb-3 col-md-4">
                         <label for="price" class="form-label">Price</label>
-                        <input type="text" name="listing[price]" id="price" class="form-control" required>
+                        <input type="number" name="listing[price]" id="price" class="form-control" required>
+                    <div class="invalid-feedback">Please Enter valid Price</div>
+
                     </div>
             
                     <div class = "mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
                         <input type="text" name="listing[country]" id="country" class="form-control" required>
+                        <div class="invalid-feedback">Please Enter Country</div>
                     </div>
                 </div>
                 
                 <div class = "mb-3">
                     <label for="location" class="form-label">Location</label>
                     <input type="text" name="listing[location]" id="location" class="form-control" required>
+                    <div class="invalid-feedback">Please Enter Location</div>
                 </div>
                 
                 <button class="btn btn-dark mb-5 add-btn">Add Place</button>
