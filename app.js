@@ -8,7 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const {listingSchema} = require("./joiSchema.js");
+const {listingSchema,reviewSchema} = require("./joiSchema.js");
 
 
 main()
@@ -35,10 +35,20 @@ const validateListing = (req,res,next)=>{
   if(error){
     throw new ExpressError(400,error);
   }
-  next();
+  else{
+    next();
+  } 
 }
 
-// const 
+const validateReview = (req,res,next) => {
+  let {error} = reviewSchema.validate(req.body);
+  if(error){
+    throw new ExpressError(400,error)
+  }
+  else{
+    next();
+  }
+}
 
 // Index Route
 app.get("/listings", wrapAsync(async (req,res)=>{
