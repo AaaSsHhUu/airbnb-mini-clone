@@ -30,6 +30,16 @@ app.get("/", (req,res)=>{
     res.send("Root is wotking");
 })
 
+const validateListing = (req,res,next)=>{
+  let {error} = listingSchema.validate(req.body);
+  if(error){
+    throw new ExpressError(400,error);
+  }
+  next();
+}
+
+// const 
+
 // Index Route
 app.get("/listings", wrapAsync(async (req,res)=>{
   const allListings = await Listing.find({});
@@ -42,13 +52,9 @@ app.get("/listings/new",wrapAsync((req,res)=>{
 }))
 
 // new data route
-app.post("/listings",wrapAsync(
+app.post("/listings",validateListing,wrapAsync(
   async (req,res,next)=>{
     // let {title,description,image,price,location,country} = req.body; 
-  let checkError = listingSchema.validate(req.body);
-    if(checkError.error){
-      throw new ExpressError(400,checkError.error);
-    }
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
@@ -72,10 +78,7 @@ app.get("/listings/:id/edit",wrapAsync(async (req,res)=>{
 }))
 
 // Update route
-app.put("/listings/:id",wrapAsync(async (req,res)=>{
-  if(!req.body.listing){
-    throw new ExpressError(400,"Bad Request");
-  }
+app.put("/listings/:id",validateListing,wrapAsync(async (req,res)=>{
   let {id} = req.params;
   await Listing.findByIdAndUpdate(id,{...req.body.listing});
   res.redirect(`/listings/${id}`);
@@ -89,16 +92,16 @@ app.delete("/listings/:id",wrapAsync(async (req,res)=>{
 }))
 
 
-app.all("*",(req,res,next)=>{
-  next(new ExpressError(404,"Page Not Found!!!"));
-})
+// app.all("*",(req,res,next)=>{
+//   next(new ExpressError(404,"Page Not Found!!!"));
+// })
 
 
 // Error Handling middleware
 app.use((err,req,res,next)=>{
   let {statusCode=500,message="Internal server error"} = err;
-  console.log(err);
-  res.render("listings/error.ejs",{statusCode,message});
+  // console.log(err);
+  res.status(statusCode).render("listings/error.ejs",{statusCode,message});
 })
 
 app.listen(port, ()=>{

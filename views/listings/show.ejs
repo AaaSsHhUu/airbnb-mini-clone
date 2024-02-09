@@ -2,13 +2,12 @@
 <body>    
     <div class="row">
         <div class="col-8 offset-2 mt-3">
-            <h3>Listing Details</h3>
+            <h3><%= listing.title %></h3>
 
             <div class="card">
                 <img src="<%= listing.image %>" class="card-img-top show-img object-fit-cover" style="height: 40vh;" alt="listing image">
                 <div class="card-body mt-2">
                     <p class="card-text">
-                        <b><%= listing.title %></b>
                         <br>
                         <%= listing.description %>
                         <br>
@@ -26,6 +25,25 @@
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger mx-3 px-4">Edit</a>
                         <form action="/listings/<%= listing._id %>?_method=DELETE"  method="post">
                             <button class="btn btn-dark mx-2">Delete</button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <hr>
+                        <h4>Leave a review</h4>
+                        <form action="" novalidate class="needs-validation">
+                            <div class="my-3">
+                                <label for="rating" class="form-label">Rating</label>
+                                <input type="range" name="review[rating]" id="rating" class="form-range" min="1" max="5" step="1">
+                                
+                            </div>
+                            <div class="my-3">
+                                <label for="comment" class="form-label">Comment</label>
+                                <textarea name="review[comment]" id="comment" class="form-control" cols="30" rows="10" required></textarea>
+                                <div class="invalid-feedback">Please write comment to submit review!!!</div>
+                            </div>
+
+                            <button class="btn btn-outline-dark">Submit</button>
                         </form>
                     </div>
                 </div>
