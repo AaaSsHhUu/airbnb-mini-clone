@@ -92,3 +92,8 @@ body{
 .card-img-overlay:hover{
     opacity: 0.2;
 }
+
+.review-cards{
+    border: 2px solid #838282 !important;
+    border-radius: 5px !important;
+}
