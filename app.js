@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const sessions = require("express-session");
 const session = require("express-session");
 const dotenv = require("dotenv").config();
 
@@ -30,7 +29,12 @@ app.use(express.static(path.join(__dirname,"/public")));
 const sessionOptions = {
   secret : process.env.SECRET,
   resave : false,
-  saveUninitialized : true
+  saveUninitialized : true,
+  cookie : {
+    expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge : 7 * 24 * 60 * 60 * 1000,
+    httpOnly : true
+  }
 }
 
 app.use(session(sessionOptions))
