@@ -29,7 +29,7 @@ app.get("/", (req,res)=>{
 
 app.use("/listings", require("./routes/listing.js"));
 
-app.use("/listings", require("./routes/review.js"));
+app.use("/listings/:id/reviews", require("./routes/review.js"));
 
 
 // Error Handling middleware
