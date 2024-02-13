@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const dotenv = require("dotenv").config();
+const flash = require("connect-flash");
 
 
 main()
@@ -37,8 +38,14 @@ const sessionOptions = {
   }
 }
 
-app.use(session(sessionOptions))
+app.use(session(sessionOptions));
+app.use(flash());
 
+app.use((req,res,next)=>{
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+})
 
 app.get("/", (req,res)=>{
     res.send("Root is working");
