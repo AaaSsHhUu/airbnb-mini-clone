@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const sessions = require("express-session");
+const session = require("express-session");
+const dotenv = require("dotenv").config();
 
 
 main()
@@ -15,6 +18,7 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 }
 
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"/views"));
 app.engine("ejs",ejsMate);
@@ -22,6 +26,15 @@ app.engine("ejs",ejsMate);
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname,"/public")));
+
+const sessionOptions = {
+  secret : process.env.SECRET,
+  resave : false,
+  saveUninitialized : true
+}
+
+app.use(session(sessionOptions))
+
 
 app.get("/", (req,res)=>{
     res.send("Root is working");
