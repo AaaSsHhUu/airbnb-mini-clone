@@ -60,6 +60,8 @@ app.get("/", (req,res)=>{
     res.send("Root is working");
 })
 
+app.use("/", require("./routes/user.js"));
+
 app.use("/listings", require("./routes/listing.js"));
 
 app.use("/listings/:id/reviews", require("./routes/review.js"));
