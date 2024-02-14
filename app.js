@@ -8,7 +8,9 @@ const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const dotenv = require("dotenv").config();
 const flash = require("connect-flash");
-
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 main()
 .then(res => console.log("Connected to DB"))
