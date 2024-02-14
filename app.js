@@ -9,7 +9,7 @@ const session = require("express-session");
 const dotenv = require("dotenv").config();
 const flash = require("connect-flash");
 const passport = require("passport");
-const localStrategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 main()
@@ -42,6 +42,13 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize()); // A middleware that initializes passport.
+app.use(passport.session());  // A web application needs the ability to identify users as they browse from page to page. This series of requests and responses, each associated with the same user, is known as a session.
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser()); // serialize user into the session
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
