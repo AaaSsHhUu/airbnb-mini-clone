@@ -2,7 +2,6 @@ body{
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 /* Navbar */
@@ -31,6 +30,10 @@ body{
 /* show page */
 .show-img{
     height: 30vh !important;
+}
+
+.container{
+    min-height: 80vh;
 }
 
 /* Footer */
