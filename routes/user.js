@@ -1,5 +1,4 @@
 const express = require("express");
-const { route } = require("./listing");
 const router = express.Router({mergeParams : true});
 const User = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
@@ -36,5 +35,14 @@ router.post("/login", passport.authenticate("local", {failureRedirect : "/login"
     req.flash("success","Welcome back to Wanderlust");
     res.redirect("/listings");
 }))
+
+// logout route
+router.get("/logout", (req,res,next)=>{
+    req.logOut((err)=>{
+        return next(err);
+    })
+    req.flash("success","You are logged out!");
+    res.redirect("/listings");
+})
 
 module.exports = router;
