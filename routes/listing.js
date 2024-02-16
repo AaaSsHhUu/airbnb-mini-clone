@@ -4,6 +4,7 @@ const {listingSchema} = require("../joiSchema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
+const {isLoggedIn} = require("../utils/middleware.js");
 
 
 
@@ -24,7 +25,7 @@ router.get("/", wrapAsync(async (req, res) => {
 }))
 
 // Add new listing route
-router.get("/new", wrapAsync((req, res) => {
+router.get("/new", isLoggedIn ,wrapAsync((req, res) => {
     res.render("listings/new.ejs");
 }))
 
