@@ -3,8 +3,9 @@ const router = express.Router({mergeParams : true});
 const User = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../utils/middleware");
 
-// login(), logout(), register(), isAuthenticated(),
+// login(), logout(), register(),authenticate(), isAuthenticated(),
 
 
 // Signup routes
@@ -38,9 +39,10 @@ router.get("/login",(req,res)=>{
     res.render("users/login.ejs");
 })
 
-router.post("/login", passport.authenticate("local", {failureRedirect : "/login", failureFlash : true}), wrapAsync(async (req,res)=>{
+router.post("/login",saveRedirectUrl, passport.authenticate("local", {failureRedirect : "/login", failureFlash : true}), wrapAsync(async (req,res)=>{
     req.flash("success","Welcome back to Wanderlust");
-    res.redirect("/listings");
+    let redirectUrl = res.locals.redirectUrl || "/listings"
+    res.redirect(redirectUrl);
 }))
 
 // logout route
