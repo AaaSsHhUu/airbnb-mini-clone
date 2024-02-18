@@ -1,22 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {listingSchema} = require("../joiSchema.js");
-const ExpressError = require("../utils/ExpressError.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
-const {isLoggedIn, isOwner} = require("../utils/middleware.js");
+const {isLoggedIn, validateListing,isOwner} = require("../utils/middleware.js");
 
-
-
-const validateListing = (req,res,next)=>{
-    let {error} = listingSchema.validate(req.body);
-    if(error){
-      throw new ExpressError(400,error);
-    }
-    else{
-      next();
-    } 
-  }
 
 // Index Route
 router.get("/", wrapAsync(async (req, res) => {

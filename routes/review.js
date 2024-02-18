@@ -1,21 +1,11 @@
 const express = require("express");
 const router = express.Router({mergeParams : true}); // mergerParams preserves the req.params value from parent url
-const {reviewSchema} = require("../joiSchema.js");
 const Review = require("../models/review.js");
 const Listing = require("../models/listing.js")
-const ExpressError = require("../utils/ExpressError.js");
 const wrapAsync = require("../utils/wrapAsync.js");
+const {validateReview} = require("../utils/middleware.js");
 
 
-const validateReview = (req, res, next) => {
-    let { error } = reviewSchema.validate(req.body);
-    if (error) {
-        throw new ExpressError(400, error)
-    }
-    else {
-        next();
-    }
-}
 
 // Review route
 router.post("/", validateReview, wrapAsync(async (req, res) => {
