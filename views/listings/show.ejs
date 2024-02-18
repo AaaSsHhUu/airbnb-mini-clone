@@ -8,6 +8,7 @@
                 <img src="<%= listing.image %>" class="card-img-top show-img object-fit-cover" style="height: 40vh;" alt="listing image">
                 <div class="card-body mt-2">
                     <p class="card-text">
+                        <b>Owner : <i><%= listing.owner.username %></i></b>
                         <br>
                         <%= listing.description %>
                         <br>
@@ -21,39 +22,42 @@
                 </div>
                 
                 <div class="row my-4">
-                    <div class="col  d-md-flex justify-content-start">
-                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger mx-3 px-4">Edit</a>
-                        <form action="/listings/<%= listing._id %>?_method=DELETE"  method="post">
-                            <button class="btn btn-dark mx-2">Delete</button>
-                        </form>
+                        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+                            <div class="col  d-md-flex justify-content-start">
+                                <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger mx-3 px-4">Edit</a>
+                                <form action="/listings/<%= listing._id %>?_method=DELETE"  method="post">
+                                    <button class="btn btn-dark mx-2">Delete</button>
+                                </form>
+                            </div>
+                        <% } %>
+
+                        <div>
+                            <hr>
+                            <h4>Leave a review</h4>
+                            <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
+
+                                <div class="my-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="review[name]" id="name" class="form-control" placeholder="Enter name">
+                                    <div class="invalid-feedback">Please enter your name</div>
+                                </div>
+
+                                <div class="my-3">
+                                    <label for="rating" class="form-label">Rating</label>
+                                    <input type="range" name="review[rating]" id="rating" class="form-range" min="1" max="5" step="1">
+                                    
+                                </div>
+                                <div class="my-3">
+                                    <label for="comment" class="form-label">Comment</label>
+                                    <textarea name="review[comment]" id="comment" class="form-control" cols="30" rows="10" required></textarea>
+                                    <div class="invalid-feedback">Please write comment to submit review!!!</div>
+                                </div>
+
+                                <button class="btn btn-outline-dark">Submit</button>
+                            </form>
+                        </div>
                     </div>
-
-                    <div>
-                        <hr>
-                        <h4>Leave a review</h4>
-                        <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
-
-                            <div class="my-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" name="review[name]" id="name" class="form-control" placeholder="Enter name">
-                                <div class="invalid-feedback">Please enter your name</div>
-                            </div>
-
-                            <div class="my-3">
-                                <label for="rating" class="form-label">Rating</label>
-                                <input type="range" name="review[rating]" id="rating" class="form-range" min="1" max="5" step="1">
-                                
-                            </div>
-                            <div class="my-3">
-                                <label for="comment" class="form-label">Comment</label>
-                                <textarea name="review[comment]" id="comment" class="form-control" cols="30" rows="10" required></textarea>
-                                <div class="invalid-feedback">Please write comment to submit review!!!</div>
-                            </div>
-
-                            <button class="btn btn-outline-dark">Submit</button>
-                        </form>
-                    </div>
-                </div>
+                
 
             </div>
 
