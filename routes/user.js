@@ -5,8 +5,6 @@ const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../utils/middleware");
 
-// login(), logout(), register(),authenticate(), isAuthenticated(),
-
 
 // Signup routes
 
