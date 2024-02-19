@@ -22,42 +22,37 @@
                 </div>
                 
                 <div class="row my-4">
+                        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
                             <div class="col  d-md-flex justify-content-start">
                                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger mx-3 px-4">Edit</a>
                                 <form action="/listings/<%= listing._id %>?_method=DELETE"  method="post">
                                     <button class="btn btn-dark mx-2">Delete</button>
                                 </form>
                             </div>
-                        
+                        <% } %>
 
-                        <div>
-                            <hr>
-                            <h4>Leave a review</h4>
-                            <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
+                        <% if(currUser){ %>
+                            <div>
+                                <hr>
+                                <h4>Leave a review</h4>
+                                <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
 
-                                <div class="my-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="review[name]" id="name" class="form-control" placeholder="Enter name">
-                                    <div class="invalid-feedback">Please enter your name</div>
-                                </div>
+                                    <div class="my-3">
+                                        <label for="rating" class="form-label">Rating</label>
+                                        <input type="range" name="review[rating]" id="rating" class="form-range" min="1" max="5" step="1">
+                                        
+                                    </div>
+                                    <div class="my-3">
+                                        <label for="comment" class="form-label">Comment</label>
+                                        <textarea name="review[comment]" id="comment" class="form-control" cols="30" rows="10" required></textarea>
+                                        <div class="invalid-feedback">Please write comment to submit review!!!</div>
+                                    </div>
 
-                                <div class="my-3">
-                                    <label for="rating" class="form-label">Rating</label>
-                                    <input type="range" name="review[rating]" id="rating" class="form-range" min="1" max="5" step="1">
-                                    
-                                </div>
-                                <div class="my-3">
-                                    <label for="comment" class="form-label">Comment</label>
-                                    <textarea name="review[comment]" id="comment" class="form-control" cols="30" rows="10" required></textarea>
-                                    <div class="invalid-feedback">Please write comment to submit review!!!</div>
-                                </div>
-
-                                <button class="btn btn-outline-dark">Submit</button>
-                            </form>
-                        </div>
+                                    <button class="btn btn-outline-dark">Submit</button>
+                                </form>
+                            </div>
+                        <% } %>
                     </div>
-                
-
             </div>
 
             <hr>
@@ -67,13 +62,15 @@
                 <% for(review of listing.reviews){ %>
                     <div class="card review-cards col-5 ms-4 mb-3 p-2">
                         <div class="card-body">
-                            <h5 class="card-title"><%= review.name %></h5>
+                            <h5 class="card-title">@<%= review.author.username %></h5>
                             <p class="card-text"><%= review.rating %> <i class="fa-solid fa-star"></i></p>
                             <p class="card-text"><%= review.comment %></p>
                         </div>
-                        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
-                            <button class="btn btn-sm btn-danger mt-2">Delete</button>
-                        </form>
+                        <% if(currUser){ %>
+                            <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger mt-2">Delete</button>
+                            </form>
+                        <% } %>
                     </div>
                 <% } %>
             </div>
