@@ -5,27 +5,27 @@ const {isLoggedIn, validateListing,isOwner} = require("../utils/middleware.js");
 const { index, newData, newListing, showListing, editLsting, updateListing, deleteListing } = require("../controller/listingController.js");
 
 
-// Index Route
-router.get("/", wrapAsync(index))
+router.route("/")
+    // Index Route
+    .get(wrapAsync(index))
+    // new data route
+    .post(isLoggedIn ,validateListing, wrapAsync(newData))
 
 // Add new listing route
 router.get("/new", isLoggedIn ,wrapAsync(newListing))
 
-// new data route
-router.post("/",isLoggedIn ,validateListing, wrapAsync(newData))
+router.route("/:id")
+    // Show Route
+    .get( wrapAsync(showListing))
+    // Update route
+    .put(isLoggedIn,validateListing, wrapAsync(updateListing))
+    // Delete route
+    .delete(isLoggedIn,isOwner, wrapAsync(deleteListing))
 
 
-// Show Route
-router.get("/:id", wrapAsync(showListing))
 
 // Edit route
 router.get("/:id/edit",isLoggedIn,isOwner, wrapAsync(editLsting))
-
-// Update route
-router.put("/:id",isLoggedIn,validateListing, wrapAsync(updateListing))
-
-// Delete route
-router.delete("/:id",isLoggedIn,isOwner, wrapAsync(deleteListing))
 
 
 
