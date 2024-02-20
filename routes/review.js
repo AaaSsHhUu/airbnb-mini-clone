@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router({mergeParams : true}); // mergerParams preserves the req.params value from parent url
-const Review = require("../models/review.js");
-const Listing = require("../models/listing.js")
 const wrapAsync = require("../utils/wrapAsync.js");
 const {validateReview, isLoggedIn, isReviewAuthor} = require("../utils/middleware.js");
 const { addReview, deleteReview } = require("../controller/reviewController.js");
