@@ -12,10 +12,8 @@ router.route("/")
     // Index Route
     .get(wrapAsync(index))
     // new data route
-    // .post(isLoggedIn ,validateListing, wrapAsync(newData))
-    .post(upload.single("listing[image]"),(req,res)=>{
-        res.send(req.file);
-    })
+    .post(isLoggedIn,upload.single("listing[image]"), wrapAsync(newData))
+    
     
 
 // Add new listing route
