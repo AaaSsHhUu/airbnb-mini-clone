@@ -9,10 +9,8 @@ const listingSchema = new Schema({
     },
     description : String,
     image : {
-        type : String,
-        default : "https://media.istockphoto.com/id/1466527775/photo/ponquogue-beach-in-the-hamptons.webp?b=1&s=170667a&w=0&k=20&c=Ppxl9896aQQoOixGQlTxiwAajE6S2zaU86F_a8qQGBQ=",
-
-        set : (v) => v === "" ? "https://media.istockphoto.com/id/1466527775/photo/ponquogue-beach-in-the-hamptons.webp?b=1&s=170667a&w=0&k=20&c=Ppxl9896aQQoOixGQlTxiwAajE6S2zaU86F_a8qQGBQ=" : v,
+        url : String,
+        filename : String
     },
     price : Number,
     location : String,
