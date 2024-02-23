@@ -12,7 +12,7 @@ router.route("/")
     // Index Route
     .get(wrapAsync(index))
     // new data route
-    .post(isLoggedIn,upload.single("listing[image]"), wrapAsync(newData))
+    .post(isLoggedIn,upload.single("listing[image]"),validateListing, wrapAsync(newData))
     
     
 
