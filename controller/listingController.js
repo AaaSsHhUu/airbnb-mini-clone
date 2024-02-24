@@ -48,9 +48,10 @@ const editLsting = async (req, res) => {
         req.flash("error","Your requested listing does not exist");
         res.redirect("/listings");
     }
-    else{
-        res.render("listings/edit.ejs", { listing });
-    }
+    
+    let originalImageUrl = listing.image.url;
+    originalImageUrl = originalImageUrl.replace("/upload","/upload/w_250")
+    res.render("listings/edit.ejs",{listing, originalImageUrl})
 }
 
 const updateListing = async (req, res) => {
