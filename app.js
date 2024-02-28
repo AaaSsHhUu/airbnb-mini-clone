@@ -11,6 +11,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 main()
 .then(res => console.log("Connected to DB"))
@@ -57,15 +58,19 @@ app.use((req,res,next)=>{
     next();
 })
 
-app.get("/", (req,res)=>{
-    res.send("Root is working");
-})
+// app.get("/", (req,res)=>{
+//     res.send("Root is working");
+// })
 
 app.use("/", require("./routes/user.js"));
 
 app.use("/listings", require("./routes/listing.js"));
 
 app.use("/listings/:id/reviews", require("./routes/review.js"));
+
+app.get("*", (req,res)=>{
+   throw new ExpressError(400,"Page Not Found");
+})
 
 
 // Error Handling middleware
