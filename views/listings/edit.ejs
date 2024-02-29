@@ -22,10 +22,31 @@
                     <img src="<%= originalImageUrl %>" style="width: 250px;">
                 </div>
                 
-                <div class="mb-3">
-                    <label for="Image-URL" class="form-label">Upload Image</label>
-                    <input type="file" name="listing[image]" class="form-control" id="Image-URL" value="<%= listing.image %>">
-                    <div class="invalid-feedback">Please Enter Image URL</div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="Image-URL" class="form-label">Upload Image</label>
+                        <input type="file" name="listing[image]" class="form-control" id="Image-URL" value="<%= listing.image %>">
+                        <div class="invalid-feedback">Please Enter Image URL</div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category]" id="category">
+                            <option value="rooms">Rooms</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="mountain-city">Mountain-city</option>
+                            <option value="castles">Castles</option>
+                            <option value="forts">Forts</option>
+                            <option value="swimming">Swimming</option>
+                            <option value="beaches">Beaches</option>
+                            <option value="hiking">Hiking</option>
+                            <option value="hotels">Hotels</option>
+                            <option value="snow">Snow</option>
+                            <option value="camping">Camping</option>
+                            <option value="farms">Farms</option>
+                        </select>
+                        <div class="invalid-feedback">Please enter a category of your place</div>
+                    </div>
                 </div>
                                 
                 <div class="row">

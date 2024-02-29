@@ -1,8 +1,114 @@
 <% layout("./layouts/boilerplate.ejs") -%>
-<body>
-    <h2>All Listings</h2>
+    
+    <style>
+        #filters{
+            display: flex;
+            align-items: center;
+        }
+        .filter a{
+            text-decoration: none;
+            color: black;
+        }
+        .filter a p{
+            font-size: 0.90rem;
+        }
+        .filter{
+            opacity: 0.8;
+        }
+        .filter:hover{
+            opacity: 1;
+        }
+        
+    </style>
+
+    <div id="filters">
+        <div class="filter m-3">
+            <a href="/listings" >
+                <div class="text-center"><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/rooms">
+                <div class="text-center"><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/mountain">
+                <div class="text-center"><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/mountain-city">
+                <div class="text-center"><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Mountain-city</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/castles">
+                <div class="text-center"><i class="fa-solid fa-chess-rook"></i></div>
+                <p>Castles</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/forts">
+                <div class="text-center"><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Forts</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/swimming">
+                <div class="text-center"><i class="fa-solid fa-person-swimming"></i></div>
+                <p>swimming</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/beaches">
+                <div class="text-center"><i class="fa-solid fa-umbrella-beach"></i></div>
+                <p>Beaches</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/hiking">
+                <div class="text-center"><i class="fa-solid fa-person-hiking"></i></div>
+                <p>Hiking</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/hotels">
+                <div class="text-center"><i class="fa-solid fa-hotel"></i></div>
+                <p>Hotels</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/snow">
+                <div class="text-center"><i class="fa-solid fa-snowflake"></i></div>
+                <p>Snow</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/camping">
+                <div class="text-center"><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </a>
+        </div>
+        <div class="filter m-3">
+            <a href="/listings/category/farms">
+                <div class="text-center"><i class="fa-solid fa-tractor"></i></div>
+                <p>Farms</p>
+            </a>
+        </div>
+    </div>
+
+    
     <div class="row row-cols-lg-3 row-cols-md-3 justify-content-center row-cols-sm-1">
+        <% if(allListings.length === 0){ %>
+            <h1>No Listings Found</h1>
+        <% } %>
         <% for(listing of allListings){ %>
+            
             <a href="/listings/<%= listing._id %>" class="listing-link">
                 <div class="card col">
                     <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" style =  "height: 20rem;">
@@ -16,4 +122,3 @@
             </a>
         <% } %>
     </div>
-</body>

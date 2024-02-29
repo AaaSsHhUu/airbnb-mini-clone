@@ -87,4 +87,12 @@ const deleteListing = async (req, res) => {
     res.redirect("/listings");
 }
 
-module.exports = {index, newListing, newData, showListing, editLsting, updateListing, deleteListing}
+const categoryListing = async (req,res) => {
+    let {type} = req.params;
+    console.log(type);
+    let allListings = await Listing.find({category : type});
+    console.log(allListings);
+    res.render("listings/index.ejs",{allListings})
+}
+
+module.exports = {index, newListing, newData, showListing, editLsting, updateListing, deleteListing, categoryListing}
