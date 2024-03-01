@@ -5,6 +5,16 @@
             display: flex;
             align-items: center;
         }
+        .filter-option{
+            display: flex;
+            align-items: center;
+            max-width: 65vw;
+            /* border: 1px solid black; */
+            overflow: scroll;
+        }
+        .filter-option::-webkit-scrollbar{
+            display: none;
+        }
         .filter a{
             text-decoration: none;
             color: black;
@@ -18,88 +28,107 @@
         .filter:hover{
             opacity: 1;
         }
+        .tax-toggle{
+            border: 1px solid black;
+            border-radius: 1rem;
+            padding: 1rem 0.5rem;
+            margin-left: 0.5rem;
+            font-size: 0.80rem;
+            font-weight: 700;
+        }
+        .tax-info{
+            display: none;
+        }
+        .on{
+         display: inline; 
+        }
         
     </style>
 
     <div id="filters">
-        <div class="filter m-3">
-            <a href="/listings" >
-                <div class="text-center"><i class="fa-solid fa-fire"></i></div>
-                <p>Trending</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/rooms">
-                <div class="text-center"><i class="fa-solid fa-bed"></i></div>
-                <p>Rooms</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/mountain">
-                <div class="text-center"><i class="fa-solid fa-mountain"></i></div>
-                <p>Mountains</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/mountain-city">
-                <div class="text-center"><i class="fa-solid fa-mountain-city"></i></div>
-                <p>Mountain-city</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/castles">
-                <div class="text-center"><i class="fa-solid fa-chess-rook"></i></div>
-                <p>Castles</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/forts">
-                <div class="text-center"><i class="fa-brands fa-fort-awesome"></i></div>
-                <p>Forts</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/swimming">
-                <div class="text-center"><i class="fa-solid fa-person-swimming"></i></div>
-                <p>swimming</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/beaches">
-                <div class="text-center"><i class="fa-solid fa-umbrella-beach"></i></div>
-                <p>Beaches</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/hiking">
-                <div class="text-center"><i class="fa-solid fa-person-hiking"></i></div>
-                <p>Hiking</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/hotels">
-                <div class="text-center"><i class="fa-solid fa-hotel"></i></div>
-                <p>Hotels</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/snow">
-                <div class="text-center"><i class="fa-solid fa-snowflake"></i></div>
-                <p>Snow</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/camping">
-                <div class="text-center"><i class="fa-solid fa-campground"></i></div>
-                <p>Camping</p>
-            </a>
-        </div>
-        <div class="filter m-3">
-            <a href="/listings/category/farms">
-                <div class="text-center"><i class="fa-solid fa-tractor"></i></div>
-                <p>Farms</p>
-            </a>
-        </div>
+
+                <div class="filter-option">
+                    <div class="filter m-3">
+                        <a href="/listings" >
+                            <div class="text-center"><i class="fa-solid fa-fire"></i></div>
+                            <p>Trending</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/rooms">
+                            <div class="text-center"><i class="fa-solid fa-bed"></i></div>
+                            <p>Rooms</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/mountain">
+                            <div class="text-center"><i class="fa-solid fa-mountain"></i></div>
+                            <p>Mountains</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/mountain-city">
+                            <div class="text-center"><i class="fa-solid fa-mountain-city"></i></div>
+                            <p>Mountain-city</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/castles">
+                            <div class="text-center"><i class="fa-solid fa-chess-rook"></i></div>
+                            <p>Castles</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/forts">
+                            <div class="text-center"><i class="fa-brands fa-fort-awesome"></i></div>
+                            <p>Forts</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/swimming">
+                            <div class="text-center"><i class="fa-solid fa-person-swimming"></i></div>
+                            <p>swimming</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/beaches">
+                            <div class="text-center"><i class="fa-solid fa-umbrella-beach"></i></div>
+                            <p>Beaches</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/hiking">
+                            <div class="text-center"><i class="fa-solid fa-person-hiking"></i></div>
+                            <p>Hiking</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/hotels">
+                            <div class="text-center"><i class="fa-solid fa-hotel"></i></div>
+                            <p>Hotels</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/snow">
+                            <div class="text-center"><i class="fa-solid fa-snowflake"></i></div>
+                            <p>Snow</p>
+                        </a>
+                    </div>
+                    <div class="filter m-3">
+                        <a href="/listings/category/camping">
+                            <div class="text-center"><i class="fa-solid fa-campground"></i></div>
+                            <p>Camping</p>
+                        </a>
+                    </div>
+                </div>
+       
+                
+                <div class="tax-toggle">
+                    <div class="form-check-reverse form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+                    </div>
+                </div>
     </div>
 
     
@@ -116,9 +145,20 @@
                     <div class="card-body mt-2">
                         <h5 class="card-title"><%= listing.title %></h5>
                         <p class="card-text"><%= listing.description %></p>
-                        <p><span>₹<%= listing.price %></span>/night</p>
+                        <p><span>₹<%= listing.price %></span>/night <i class="tax-info">+18% GST</i></p>
+                        
                     </div>
                 </div>
             </a>
         <% } %>
     </div>
+
+    <script>
+        let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+        taxSwitch.addEventListener("click",()=>{
+            let taxInfo = document.getElementsByClassName("tax-info");
+            for(info of taxInfo){
+                info.classList.toggle("on");
+            }
+        })
+    </script>
