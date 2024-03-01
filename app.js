@@ -6,19 +6,22 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
+const MongoStore = require("connect-mongo"); // In express-session , the session data is stored in local storage,which is not designed for production environment, it will leak memory under most condition and hence not scalable. Therefore we use connect-mongo package to store session data in database.
+// express-session and connect-mongo are used together
 const dotenv = require("dotenv").config();
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { error } = require("console");
 
 main()
 .then(res => console.log("Connected to DB"))
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  await mongoose.connect(process.env.ATLAS_DB_URL);
 }
 
 
@@ -30,7 +33,20 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname,"/public")));
 
+const store = MongoStore.create({
+  mongoUrl : process.env.ATLAS_DB_URL,
+  crypto : {
+    secret : process.env.SECRET
+  },
+  touchAfter : 24 * 3600
+})
+
+store.on("error",() => {
+  console.log("Error occured in Mongo Store", error)
+})
+
 const sessionOptions = {
+  store,
   secret : process.env.SECRET,
   resave : false,
   saveUninitialized : true,
